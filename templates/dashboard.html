@@ -1,0 +1,3 @@
+{% extends "base.html" %}{% block title %}Dashboard{% endblock %}{% block content %}
+<div class="card"><h1>Hello, {{ session.username }}</h1><p>Your role: <strong>{{ role }}</strong></p>
+<p>{% if role == 'admin' %}You can open the <a href="{{ url_for('admin') }}">admin page</a>.{% else %}The admin page is restricted; you will see a 403 error if you try it.{% endif %}</p></div>{% endblock %}

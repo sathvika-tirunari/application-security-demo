@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}AppSec Demo{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<body>
+<nav><span class="brand">AppSec Demo (educational)</span><a href="{{ url_for('index') }}">Home</a>
+{% if session.get('user_id') %}<a href="{{ url_for('dashboard') }}">Dashboard</a><a href="{{ url_for('admin') }}">Admin</a>
+<form method="post" action="{{ url_for('logout') }}" style="margin:0"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button type="submit">Log out</button></form>
+{% else %}<a href="{{ url_for('login') }}">Log in</a><a href="{{ url_for('register') }}">Register</a>{% endif %}</nav>
+<main>{% with messages = get_flashed_messages(with_categories=true) %}{% for cat, m in messages %}<div class="msg {{ cat }}">{{ m }}</div>{% endfor %}{% endwith %}
+{% block content %}{% endblock %}</main></body></html>

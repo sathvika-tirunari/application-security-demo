@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block title %}Admin{% endblock %}{% block content %}
+<div class="card" style="max-width:720px"><h1>Admin: users</h1>
+<table width="100%" cellpadding="6"><tr><th align="left">ID</th><th align="left">Username</th><th align="left">Role</th><th></th></tr>
+{% for u in users %}<tr><td>{{ u.id }}</td><td>{{ u.username }}</td><td>{{ u.role }}</td><td>
+{% if u.id != session.user_id %}<form method="post" action="{{ url_for('change_role', user_id=u.id) }}" style="display:flex;gap:.4rem">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><select name="role"><option value="user" {{ 'selected' if u.role=='user' }}>user</option><option value="admin" {{ 'selected' if u.role=='admin' }}>admin</option></select><button type="submit">Set</button></form>{% endif %}</td></tr>{% endfor %}</table></div>
+<style>main{max-width:760px}</style>{% endblock %}
